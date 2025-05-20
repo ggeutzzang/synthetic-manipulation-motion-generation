@@ -10,8 +10,7 @@ The NVIDIA Isaac GR00T blueprint for synthetic manipulation motion generation is
 ## Prerequisites
 **Requirements for local deployment:**
 * Ubuntu 22.04 Operating System
-* NVIDIA GPU (GeForce RTX 4080 with 32GB RAM and 16GB VRAM or higher)
-  * [See Isaac Sim Requirements with Isaac Lab VRAM note](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html)
+* NVIDIA GPU (RTX A 6000 with 48GB VRAM)
 * [NVIDIA GPU Driver](https://www.nvidia.com/en-us/drivers/unix/) (recommended version 535.129.03)
 * [Docker](https://docs.docker.com/engine/install/ubuntu/)
 * [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit) (minimum version 1.17.0)

@@ -1,0 +1,62 @@
+# Isaac Lab 로봇 학습 데이터 생성 프로젝트 가이드
+
+## 프로젝트 개요
+이 프로젝트는 NVIDIA Isaac Lab과 Cosmos를 활용하여 로봇 조작 작업을 위한 합성 모션 궤적을 생성하는 파이프라인입니다.
+
+## 핵심 파일 구조
+
+### 메인 노트북
+- [generate_dataset.ipynb](mdc:notebook/generate_dataset.ipynb): 전체 워크플로우의 핵심 노트북
+  - Isaac Lab Mimic을 사용한 모션 궤적 합성
+  - NVIDIA Cosmos를 통한 시각적 증강
+  - Franka 로봇 팔의 큐브 스택 작업 시연 생성
+
+### 유틸리티 모듈
+- [notebook_utils.py](mdc:notebook/notebook_utils.py): 비디오 인코딩, 경로 관리 등 핵심 유틸리티 함수
+- [notebook_widgets.py](mdc:notebook/notebook_widgets.py): Jupyter 위젯 생성 및 인터랙티브 UI 컴포넌트
+- [cosmos_request.py](mdc:notebook/cosmos_request.py): Cosmos 모델과의 API 통신 모듈
+- [app.py](mdc:notebook/app.py): Cosmos Transfer1 모델을 위한 웹 API 서버
+
+### 설정 파일
+- [stacking_prompt.toml](mdc:notebook/stacking_prompt.toml): Cosmos 모델용 프롬프트 템플릿 정의
+- [docker-compose.yml](mdc:docker-compose.yml): Isaac Lab 컨테이너 배포 설정
+- [launch.sh](mdc:launch.sh): 컨테이너 시작 스크립트
+
+## 주요 워크플로우
+
+### 1단계: 모션 궤적 합성
+- Isaac Lab Mimic을 사용하여 소수의 인간 시연에서 다양한 새로운 궤적 생성
+- 환경 랜덤화를 통한 데이터 다양성 확보
+- 성공한 시연만 자동 필터링하여 데이터셋에 포함
+
+### 2단계: 시각적 증강
+- Cosmos 모델을 활용한 현실적인 시각적 변형 적용
+- 세맨틱 세그멘테이션과 셰이딩을 결합한 전처리
+- 대규모 다양한 학습 데이터셋 자동 생성
+
+## 개발 가이드
+
+### 환경 설정
+- Ubuntu 22.04, NVIDIA GPU (RTX A6000 48GB+ 권장)
+- Isaac Lab 시뮬레이션용과 Cosmos 모델용 별도 하드웨어 필요
+- Docker 및 NVIDIA Container Toolkit 필수
+
+### 파라미터 조정
+- `randomizable_params`: 환경 랜덤화 설정
+- Franka 관절 상태 및 큐브 위치 랜덤화 제어
+- Cosmos 모델 파라미터: control_weight, sigma_max 등
+
+### 확장 방법
+- 새로운 로봇 작업 추가 시 환경 설정 파일 수정
+- 다른 로봇 모델 지원을 위한 설정 확장
+- 추가 시각적 증강 기법 통합 가능
+
+## 코드 분석 및 리뷰 가이드
+- 코드 분석 요청 시, 세부 주석 추가
+- 코드 관련 추가 설명 요청 시, 관련 예제 코드를 참고 문서나 공식 가이드를 참고하여 작성
+- 작성된 예제 코드는 test 폴더 밑에 생성
+
+### 참고 문서
+* [Isaac Lab](https://github.com/isaac-sim/IsaacLab)
+* [Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html)
+* [Cosmos Transfer1](https://github.com/nvidia-cosmos/cosmos-transfer1)
